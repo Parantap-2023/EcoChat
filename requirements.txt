@@ -1,2 +1,9 @@
 langchain_groq
+streamlit
+pandas
+langchain_groq
+langchain-community
+langchain-core
+langchain-huggingface
+faiss-cpu
 
