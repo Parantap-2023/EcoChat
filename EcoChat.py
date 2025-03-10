@@ -62,15 +62,14 @@ prompt = ChatPromptTemplate.from_template(
     {context}
     </context>
 
+    Conversation History:
+    {history}
+
     Question: {input}
 
     Provide clear, accurate, and well-explained responses, making sure to emphasize sustainability aspects where relevant.
     """
 )
-
-# Clear chat history when the page is refreshed
-if "messages" in st.session_state:
-    del st.session_state["messages"]
 
 # Initialize session state for chat history
 if "messages" not in st.session_state:
@@ -92,7 +91,10 @@ if user_prompt:
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
-    
+
+    # Truncate conversation history to avoid exceeding token limit
+    history_text = "\n".join([msg["content"] for msg in st.session_state.messages][-5:])  # Keep only last 5 messages
+
     # Create retrieval and response chain
     document_chain = create_stuff_documents_chain(llm, prompt)
     retriever = vector_store.as_retriever()
@@ -100,7 +102,7 @@ if user_prompt:
 
     # Get response
     start = time.process_time()
-    response = retrieval_chain.invoke({'input': user_prompt, 'history': "\n".join([msg["content"] for msg in st.session_state.messages][-5:])})  # Keep last 5 messages
+    response = retrieval_chain.invoke({'input': user_prompt, 'history': history_text})
     elapsed_time = time.process_time() - start
     print(f"Response time: {elapsed_time:.2f} seconds")
 
