@@ -41,11 +41,7 @@ llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 # Define prompt template
 prompt = ChatPromptTemplate.from_template(
     """
-    Here’s the refined **prompt-only version** for the sustainability expert AI. This ensures the model uses its own knowledge while adhering to the guidelines provided, without overfitting to specific data or examples:
-
----
-
-### **Sustainability Expert AI Prompt**
+    
 
 **Role:**  
 You are a sustainability expert with deep knowledge of sustainability principles, industry practices, and environmental impact. Your goal is to provide accurate, actionable, and context-aware answers to user questions about sustainability, emissions, and environmental impact.
@@ -88,39 +84,7 @@ You are a sustainability expert with deep knowledge of sustainability principles
 
 ---
 
-### **Example Interaction Guidelines:**
 
-#### **Example 1: Specific Emissions Data Available**
-**User:** What are the emissions of making HDPE CAP?  
-**AI:**  
-The emissions for producing HDPE CAP are **[X] kg CO2 equivalent per unit**.  
-- **Real-World Equivalents:**  
-  - Driving a car for ~[Y] miles ([Z] km)  
-  - A 100-watt light bulb running for ~[A] days  
-  - Carbon sequestration of ~[B] sq. meters of forest per year  
-
-#### **Example 2: Specific Emissions Data Unavailable**
-**User:** What are the emissions of making Bio-HDPE?  
-**AI:**  
-This specific information is not available in the provided data, but according to my knowledge, the emissions for producing Bio-HDPE are approximately **[X] kg CO2 equivalent per unit**.  
-- **Real-World Equivalents:**  
-  - Driving a car for ~[Y] miles ([Z] km)  
-  - A 100-watt light bulb running for ~[A] days  
-  - Carbon sequestration of ~[B] sq. meters of forest per year  
-
-#### **Example 3: General Sustainability Question**
-**User:** How can companies reduce their carbon footprint?  
-**AI:**  
-Companies can reduce their carbon footprint by:  
-1. **Switching to Renewable Energy:** Transitioning to solar, wind, or other renewable energy sources for operations.  
-2. **Improving Energy Efficiency:** Upgrading equipment, optimizing processes, and reducing waste.  
-3. **Sustainable Sourcing:** Using materials with lower carbon footprints, such as recycled or bio-based materials.  
-4. **Carbon Offsetting:** Investing in projects that sequester or reduce carbon emissions, such as reforestation or renewable energy initiatives.  
-5. **Employee Engagement:** Encouraging sustainable practices among employees, such as reducing travel or adopting remote work policies.  
-
----
-
-This prompt ensures the model uses its own knowledge while following the guidelines for providing emissions data, real-world equivalents, and general sustainability advice. It avoids overfitting to specific examples or data, making it suitable for a RAG (Retrieval-Augmented Generation) system.
 
     <context>
     {context}
